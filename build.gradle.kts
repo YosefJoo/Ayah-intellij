@@ -18,16 +18,16 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.anas-elgarhy:alquran-cloud-api:v0.4.2-v1")
+    implementation("com.github.anas-elgarhy:alquran-cloud-api:0.4.3")
     implementation("com.miglayout:miglayout-swing:11.1")
     // implementation("com.github.goxr3plus:java-stream-player:10.0.2")
     implementation("com.googlecode.soundlibs:jlayer:1.0.1.4")
 
-    compileOnly("org.projectlombok:lombok:1.18.26")
-    annotationProcessor("org.projectlombok:lombok:1.18.26")
+    compileOnly("org.projectlombok:lombok:1.18.28")
+    annotationProcessor("org.projectlombok:lombok:1.18.28")
 
-    testImplementation("org.projectlombok:lombok:1.18.26")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.26")
+    testImplementation("org.projectlombok:lombok:1.18.28")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.28")
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -71,7 +71,9 @@ tasks {
                     throw GradleException("Plugin description section not found in README.md:\n$start ... $end")
                 }
                 subList(indexOf(start) + 1, indexOf(end))
-            }.joinToString("\n").let { markdownToHTML(it) }
+            }.joinToString("\n")
+                .replace("./assets/", "https://raw.githubusercontent.com/anas-elgarhy/Ayah-intellij/master/assets/")
+                .let { markdownToHTML(it) }
         )
 
         // Get the latest available change notes from the changelog file
@@ -86,7 +88,7 @@ tasks {
     }
 
     publishPlugin {
-        dependsOn("patchChangelog")
+        dependsOn("patchChangelog", "patchPluginXml")
         token.set(System.getenv("PUBLISH_TOKEN"))
         // pluginVersion is based on the SemVer (https://semver.org) and supports pre-release labels, like 2.1.7-alpha.3
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
