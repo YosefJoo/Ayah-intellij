@@ -5,8 +5,8 @@ fun properties(key: String) = project.findProperty(key).toString()
 
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.13.3"
-    id("org.jetbrains.changelog") version "2.0.0"
+    id("org.jetbrains.intellij") version "1.14.0"
+    id("org.jetbrains.changelog") version "2.1.0"
 }
 
 version = properties("pluginVersion")
@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.anas-elgarhy:alquran-cloud-api:0.4.3")
+    implementation("com.github.anas-elgarhy:alquran-cloud-api:0.4.4")
     implementation("com.miglayout:miglayout-swing:11.1")
     // implementation("com.github.goxr3plus:java-stream-player:10.0.2")
     implementation("com.googlecode.soundlibs:jlayer:1.0.1.4")
